@@ -110,6 +110,25 @@ class HttpService implements HttpServiceInterface
     }
 
     /**
+     * Curlify an existing client.
+     *
+     * Returns the client given as argument with appropriate curl setup.
+     *
+     * @param \Zend\Http\Client $client  HTTP client
+     * @param array             $options ZF2 CurlAdapter options
+     *
+     * @return \Zend\Http\Client
+     */
+    public function curlify(\Zend\Http\Client $client, array $options = array())
+    {
+        $adapter = new \Zend\Http\Client\Adapter\Curl();
+        $adapter->setOptions($options);
+        $client->setAdapter($adapter);
+        return $client;
+    }
+
+
+    /**
      * Perform a GET request.
      *
      * @param string $url     Request URL
