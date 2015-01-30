@@ -142,11 +142,15 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld')
+                    new \Zend\Uri\Http('http://example.tld')),
+                $this->equalTo(),
+                $this->equalTo(null),
+                $this->equalTo(
+                   new \Zend\Http\Headers()
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', array(), null, array("Content-type: application/json", "Accept: application/json")));
+        $service->get('http://example.tld', array(), null, array("Content-type: application/json", "Accept: application/json"));
     }
 
 
