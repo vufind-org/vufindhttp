@@ -143,7 +143,7 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo('GET'),
                 $this->equalTo(
                     new \Zend\Uri\Http('http://example.tld')),
-                $this->equalTo(),
+                $this->equalTo(array()),
                 $this->equalTo(null),
                 $this->equalTo(
                    new \Zend\Http\Headers()
