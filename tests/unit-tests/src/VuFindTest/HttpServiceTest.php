@@ -140,17 +140,17 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
         $adapter->expects($this->once())
             ->method('write')
             ->with(
-                $this->equalTo('GET'),
+		$this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld')),
-                $this->equalTo(array()),
-                $this->equalTo(null),
-                $this->equalTo(
-                   new \Zend\Http\Headers()
+                    new \Zend\Uri\Http('http://example.tld?foo=bar')
+                ),
+                $this->equalTo('1.1'),
+		$this->equalTo(
+                    array('Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json')
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', array(), null, array("Content-type: application/json", "Accept: application/json"));
+        $service->get('http://example.tld', array('foo=bar'), 'test', array("Content-type: application/json", "Accept: application/json"));
     }
 
 
