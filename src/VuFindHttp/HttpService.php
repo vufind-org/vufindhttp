@@ -145,6 +145,7 @@ class HttpService implements HttpServiceInterface
      * @param mixed  $body    Request body document
      * @param string $type    Request body content type
      * @param float  $timeout Request timeout in seconds
+     * @param array  $headers Request http-headers
      *
      * @return \Zend\Http\Response
      */
