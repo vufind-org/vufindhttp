@@ -78,7 +78,7 @@ class HttpService implements HttpServiceInterface
      *
      * @return void
      */
-    public function __construct (array $proxyConfig = array(),
+    public function __construct(array $proxyConfig = array(),
         array $defaults = array()
     ) {
         $this->proxyConfig = $proxyConfig;
