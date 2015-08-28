@@ -101,7 +101,8 @@ class HttpService implements HttpServiceInterface
             $host = $client->getUri()->getHost();
             if (!$this->isLocal($host)) {
 
-                $socks5 = isset($this->proxyConfig['socks5']) && $this->proxyConfig['socks5'];
+                $socks5 = isset($this->proxyConfig['socks5']) &&
+                     $this->proxyConfig['socks5'];
 
                 if ($socks5) {
                     $adapter = new \Zend\Http\Client\Adapter\Curl();
@@ -112,11 +113,11 @@ class HttpService implements HttpServiceInterface
                     $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                     $adapter->setCurlOption(CURLOPT_PROXY, $host);
 
-                    if (isset($port) && !empty($port))
+                    if (isset($port) && ! empty($port)) {
                         $adapter->setCurlOption(CURLOPT_PROXYPORT, $port);
+                    }
 
                     $client->setAdapter($adapter);
-
                 } else {
                     $adapter = new \Zend\Http\Client\Adapter\Proxy();
                     $options = array_replace($this->proxyConfig, $options);
