@@ -13,10 +13,10 @@
             "role": "Maintainer"
         }
     ],
-    "homepage": "http://vufind.org/",
+    "homepage": "https://vufind.org/",
     "license": "GPL-2.0",
     "support": {
-        "issues": "http://vufind.org/jira"
+        "issues": "https://vufind.org/jira"
     },
     "require": {
         "zendframework/zend-http": ">=2.2"
