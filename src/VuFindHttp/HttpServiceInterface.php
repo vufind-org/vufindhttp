@@ -57,10 +57,13 @@ interface HttpServiceInterface
      * @param string $url     Request URL
      * @param array  $params  Request parameters
      * @param float  $timeout Request timeout in seconds
+     * @param array  $headers Request headers
      *
      * @return \Zend\Http\Response
      */
-    public function get($url, array $params = [], $timeout = null);
+    public function get($url, array $params = [], $timeout = null,
+        array $headers = []
+    );
 
     /**
      * Perform a POST request.
@@ -69,11 +72,12 @@ interface HttpServiceInterface
      * @param mixed  $body    Request body document
      * @param string $type    Request body content type
      * @param float  $timeout Request timeout in seconds
+     * @param array  $headers Request http-headers
      *
      * @return \Zend\Http\Response
      */
     public function post($url, $body = null, $type = 'application/octet-stream',
-        $timeout = null
+        $timeout = null, array $headers = []
     );
 
     /**
@@ -96,8 +100,8 @@ interface HttpServiceInterface
      *
      * @return \Zend\Http\Client
      */
-    public function createClient($url, $method = \Zend\Http\Request::METHOD_GET,
-        $timeout = null
+    public function createClient($url = null,
+        $method = \Zend\Http\Request::METHOD_GET, $timeout = null
     );
 
 }
