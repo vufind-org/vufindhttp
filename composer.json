@@ -1,6 +1,6 @@
 {
     "name": "vufind-org/vufindhttp",
-    "description": "VuFind 2.x HTTP service library",
+    "description": "VuFind HTTP service library",
     "authors": [
         {
             "name": "David Maus",
@@ -19,6 +19,7 @@
         "issues": "https://vufind.org/jira"
     },
     "require": {
+        "php": ">=5.4",
         "zendframework/zend-http": ">=2.2"
     },
     "require-dev": {
