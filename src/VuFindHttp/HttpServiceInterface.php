@@ -26,7 +26,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-
 namespace VuFindHttp;
 
 /**
@@ -38,7 +37,6 @@ namespace VuFindHttp;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-
 interface HttpServiceInterface
 {
     /**
@@ -51,7 +49,7 @@ interface HttpServiceInterface
      *
      * @return \Zend\Http\Client
      */
-    public function proxify(\Zend\Http\Client $client, array $options = array());
+    public function proxify(\Zend\Http\Client $client, array $options = []);
 
     /**
      * Perform a GET request.
@@ -62,7 +60,7 @@ interface HttpServiceInterface
      *
      * @return \Zend\Http\Response
      */
-    public function get($url, array $params = array(), $timeout = null);
+    public function get($url, array $params = [], $timeout = null);
 
     /**
      * Perform a POST request.
@@ -87,7 +85,7 @@ interface HttpServiceInterface
      *
      * @return \Zend\Http\Response
      */
-    public function postForm($url, array $params = array(), $timeout = null);
+    public function postForm($url, array $params = [], $timeout = null);
 
     /**
      * Return a new proxy client.
