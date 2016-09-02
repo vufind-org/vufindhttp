@@ -243,6 +243,29 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test proxify with a Curl adapter.
+     *
+     * @return void
+     */
+    public function testProxifyCurlAdapter()
+    {
+        $service = new Service(
+            array(
+                'proxy_host' => 'localhost',
+                'proxy_port' => '666'
+            )
+        );
+        $service->setDefaultAdapter(new \Zend\Http\Client\Adapter\Curl());
+        $client = new \Zend\Http\Client('http://example.tld:8080');
+        $client = $service->proxify($client);
+        $adapter = $client->getAdapter();
+        $this->assertInstanceOf('Zend\Http\Client\Adapter\Curl', $adapter);
+        $config = $adapter->getConfig();
+        $this->assertEquals('localhost', $config['curloptions'][CURLOPT_PROXY]);
+        $this->assertEquals('666', $config['curloptions'][CURLOPT_PROXYPORT]);
+    }
+
+    /**
      * Test proxify w/SOCKS5 option.
      *
      * @return void

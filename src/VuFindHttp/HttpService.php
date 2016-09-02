@@ -85,6 +85,35 @@ class HttpService implements HttpServiceInterface
     }
 
     /**
+     * Set proxy options in a Curl adapter.
+     *
+     * @param \Zend\Http\Client\Adapter\Curl $adapter Adapter to configure
+     *
+     * @return void
+     */
+    protected function setCurlProxyOptions($adapter)
+    {
+        $adapter->setCurlOption(CURLOPT_PROXY, $this->proxyConfig['proxy_host']);
+        if (!empty($this->proxyConfig['proxy_port'])) {
+            $adapter
+                ->setCurlOption(CURLOPT_PROXYPORT, $this->proxyConfig['proxy_port']);
+        }
+    }
+
+    /**
+     * Are we configured to use the CURL adapter?
+     *
+     * @return bool
+     */
+    protected function hasCurlAdapterAsDefault()
+    {
+        $default = isset($this->defaults['adapter'])
+            ? $this->defaults['adapter']
+            : ($this->defaultAdapter ? get_class($this->defaultAdapter) : '');
+        return $default === 'Zend\Http\Client\Adapter\Curl';
+    }
+
+    /**
      * Proxify an existing client.
      *
      * Returns the client given as argument with appropriate proxy setup.
@@ -104,22 +133,24 @@ class HttpService implements HttpServiceInterface
 
                 if ($proxyType == 'socks5') {
                     $adapter = new \Zend\Http\Client\Adapter\Curl();
-                    $host = $this->proxyConfig['proxy_host'];
-                    $port = $this->proxyConfig['proxy_port'];
-
+                    // Apply standard proxy options for Curl adapter:
+                    $this->setCurlProxyOptions($adapter);
+                    // Add SOCKS5 settings:
                     $adapter->setCurlOption(CURLOPT_FOLLOWLOCATION, true);
                     $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-                    $adapter->setCurlOption(CURLOPT_PROXY, $host);
-
-                    if (isset($port) && ! empty($port)) {
-                        $adapter->setCurlOption(CURLOPT_PROXYPORT, $port);
-                    }
-
                     $client->setAdapter($adapter);
                 } elseif ($proxyType == 'default') {
-                    $adapter = new \Zend\Http\Client\Adapter\Proxy();
-                    $options = array_replace($this->proxyConfig, $options);
-                    $adapter->setOptions($options);
+                    // If the user has manually configured a Curl adapter,
+                    // configure it for proxy compatibility; otherwise, create
+                    // a fresh Proxy adapter.
+                    if ($this->hasCurlAdapterAsDefault()) {
+                        $adapter = new \Zend\Http\Client\Adapter\Curl();
+                        $this->setCurlProxyOptions($adapter);
+                    } else {
+                        $adapter = new \Zend\Http\Client\Adapter\Proxy();
+                        $options = array_replace($this->proxyConfig, $options);
+                        $adapter->setOptions($options);
+                    }
                     $client->setAdapter($adapter);
                 }
             }
