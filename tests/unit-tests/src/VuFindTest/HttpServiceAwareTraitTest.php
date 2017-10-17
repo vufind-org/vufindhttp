@@ -62,7 +62,7 @@ class HttpServiceAwareTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetHttpService()
     {
-        $mock = $this->getMock('VuFindHttp\HttpService');
+        $mock = $this->getMockBuilder('VuFindHttp\HttpService')->getMock();
         $test = new HttpServiceAwareTraitTestImplementation();
         $test->setHttpService($mock);
         $this->assertEquals($mock, $this->getProperty($test, 'httpService'));

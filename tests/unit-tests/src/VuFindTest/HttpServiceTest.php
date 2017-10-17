@@ -73,7 +73,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetWithAssocParams()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -94,7 +95,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetWithParamPairs()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -115,7 +117,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetAppendsQueryPart()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -136,7 +139,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetAppendsHeaders()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -161,7 +165,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testPostAppendsHeaders()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -186,7 +191,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testPostForm()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -207,7 +213,8 @@ class ProxyServiceTest extends \PHPUnit_Framework_TestCase
     public function testSendPostRequestEmptyBody()
     {
         $service = new Service();
-        $adapter = $this->getMock('Zend\Http\Client\Adapter\Test', array('write'));
+        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+            ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
