@@ -103,5 +103,4 @@ interface HttpServiceInterface
     public function createClient($url = null,
         $method = \Zend\Http\Request::METHOD_GET, $timeout = null
     );
-
 }

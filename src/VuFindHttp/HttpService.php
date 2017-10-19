@@ -341,5 +341,4 @@ class HttpService implements HttpServiceInterface
     {
         return preg_match(self::LOCAL_ADDRESS_RE, $host);
     }
-
 }
