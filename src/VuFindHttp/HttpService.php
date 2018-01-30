@@ -98,6 +98,10 @@ class HttpService implements HttpServiceInterface
             $adapter
                 ->setCurlOption(CURLOPT_PROXYPORT, $this->proxyConfig['proxy_port']);
         }
+        if (!empty($this->proxyConfig['proxy_no_proxy'])) {
+            $adapter
+                ->setCurlOption(CURLOPT_NOPROXY, $this->proxyConfig['proxy_no_proxy']);
+        }
     }
 
     /**
