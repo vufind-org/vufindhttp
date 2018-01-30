@@ -127,7 +127,7 @@ class HttpService implements HttpServiceInterface
     {
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
-            if (!$this->isLocal($host)) {
+            if (!empty($host) && !$this->isLocal($host)) {
                 $proxyType = isset($this->proxyConfig['proxy_type'])
                     ? $this->proxyConfig['proxy_type'] : 'default';
 
