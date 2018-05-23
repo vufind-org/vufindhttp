@@ -58,7 +58,7 @@ use VuFindHttp\HttpService as Service;
  * @link     https://vufind.org/wiki/development
  */
 
-class ProxyServiceTest extends \PHPUnit_Framework_TestCase
+class ProxyServiceTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $local = array('ipv4 localhost' => 'http://localhost',

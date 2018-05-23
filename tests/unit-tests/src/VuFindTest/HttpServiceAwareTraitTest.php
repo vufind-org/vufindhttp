@@ -53,7 +53,7 @@ namespace VuFindTest;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-class HttpServiceAwareTraitTest extends \PHPUnit_Framework_TestCase
+class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test setter
