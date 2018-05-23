@@ -107,9 +107,8 @@ class HttpService implements HttpServiceInterface
      */
     protected function hasCurlAdapterAsDefault()
     {
-        $default = isset($this->defaults['adapter'])
-            ? $this->defaults['adapter']
-            : ($this->defaultAdapter ? get_class($this->defaultAdapter) : '');
+        $default = $this->defaults['adapter']
+            ?? ($this->defaultAdapter ? get_class($this->defaultAdapter) : '');
         return $default === 'Zend\Http\Client\Adapter\Curl';
     }
 
@@ -128,8 +127,7 @@ class HttpService implements HttpServiceInterface
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
             if (!$this->isLocal($host)) {
-                $proxyType = isset($this->proxyConfig['proxy_type'])
-                    ? $this->proxyConfig['proxy_type'] : 'default';
+                $proxyType =  $this->proxyConfig['proxy_type'] ?? 'default';
 
                 if ($proxyType == 'socks5') {
                     $adapter = new \Zend\Http\Client\Adapter\Curl();
