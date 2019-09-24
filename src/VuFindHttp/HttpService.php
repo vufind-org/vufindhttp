@@ -81,6 +81,7 @@ class HttpService implements HttpServiceInterface
      *
      * @param array $proxyConfig Proxy configuration
      * @param array $defaults    Default HTTP options
+     * @param array $config      Configuration
      *
      * @return void
      */
