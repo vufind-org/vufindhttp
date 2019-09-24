@@ -56,6 +56,13 @@ class HttpService implements HttpServiceInterface
     protected $proxyConfig;
 
     /**
+     * Configuration.
+     *
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Default client options.
      *
      * @var array
@@ -78,10 +85,11 @@ class HttpService implements HttpServiceInterface
      * @return void
      */
     public function __construct(array $proxyConfig = [],
-        array $defaults = []
+        array $defaults = [], array $config = []
     ) {
         $this->proxyConfig = $proxyConfig;
         $this->defaults = $defaults;
+        $this->config = $config;
     }
 
     /**
@@ -329,7 +337,7 @@ class HttpService implements HttpServiceInterface
     }
 
     /**
-     * Return TRUE if argument refers to localhost.
+     * Return TRUE if argument refers to localhost or host that is not proxied.
      *
      * @param string $host Host to check
      *
@@ -337,6 +345,8 @@ class HttpService implements HttpServiceInterface
      */
     protected function isLocal($host)
     {
-        return preg_match(self::LOCAL_ADDRESS_RE, $host);
+        return preg_match(self::LOCAL_ADDRESS_RE, $host)
+            || (isset($this->config['non_proxy_host'])
+                && in_array($host, $this->config['non_proxy_host']));
     }
 }
