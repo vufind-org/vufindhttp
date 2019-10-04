@@ -65,6 +65,8 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                              'ipv4 loopback'  => 'http://127.0.0.1',
                              'ipv6 loopback'  => 'http://[::1]');
 
+    protected $localAddressesRegEx = '@^(localhost|127(\.\d+){3}|\[::1\]|([a-z])+\.internal)@';
+
     /**
      * Test GET request with associative array.
      *
@@ -321,6 +323,54 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 sprintf('Failed to proxify %s: %s', $name, $address)
             );
         }
+    }
+
+    public function testNoProxifyLocalAddress()
+    {
+        $service = new Service(
+            array(
+                'proxy_host' => 'localhost',
+                'proxy_port' => '666'
+            ),
+            array(),
+            array (
+                'localAddressesRegEx' => $this->localAddressesRegEx
+            )
+        );
+
+        $localAddress = 'http://solr.internal';
+        $client = new \Zend\Http\Client($localAddress);
+        $client->setAdapter(new \Zend\Http\Client\Adapter\Test());
+        $client = $service->proxify($client);
+        $this->assertInstanceOf(
+            'Zend\Http\Client\Adapter\Test',
+            $client->getAdapter(),
+            sprintf('Failed to proxify %s', $localAddress)
+        );
+    }
+
+    public function testProxifyExternalAddress()
+    {
+        $service = new Service(
+            array(
+                'proxy_host' => 'localhost',
+                'proxy_port' => '666'
+            ),
+            array(),
+            array (
+                'localAddressesRegEx' => $this->localAddressesRegEx
+            )
+        );
+
+        $externalAddress = 'http://solr.external';
+        $client = new \Zend\Http\Client($externalAddress);
+        $client->setAdapter(new \Zend\Http\Client\Adapter\Test());
+        $client = $service->proxify($client);
+        $this->assertInstanceOf(
+            'Zend\Http\Client\Adapter\Proxy',
+            $client->getAdapter(),
+            sprintf('Failed to proxify %s', $externalAddress)
+        );
     }
 
     /**
