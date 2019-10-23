@@ -63,9 +63,9 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
      *
      * @var array
      */
-    protected $local = array('ipv4 localhost' => 'http://localhost',
-                             'ipv4 loopback'  => 'http://127.0.0.1',
-                             'ipv6 loopback'  => 'http://[::1]');
+    protected $local = ['ipv4 localhost' => 'http://localhost',
+                        'ipv4 loopback'  => 'http://127.0.0.1',
+                        'ipv6 loopback'  => 'http://[::1]'];
 
     /**
      * Example custom regular expression for extended local server detection.
@@ -93,7 +93,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', array('foo' => 'bar', 'bar' => array('baz')));
+        $service->get('http://example.tld', ['foo' => 'bar', 'bar' => ['baz']]);
     }
 
     /**
@@ -115,7 +115,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', array('foo=bar', 'bar=baz', 'bar=bar'));
+        $service->get('http://example.tld', ['foo=bar', 'bar=baz', 'bar=bar']);
     }
 
     /**
@@ -137,10 +137,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld?foo=bar', array('bar=baz'));
+        $service->get('http://example.tld?foo=bar', ['bar=baz']);
     }
 
-   /**
+    /**
      * Test GET request appends headers.
      *
      * @return void
@@ -159,14 +159,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    array('Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json')
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', array('foo=bar'), 'test', array("Content-type: application/json", "Accept: application/json"));
+        $service->get('http://example.tld', ['foo=bar'], 'test', ["Content-type: application/json", "Accept: application/json"]);
     }
 
-   /**
+    /**
      * Test POST request appends headers.
      *
      * @return void
@@ -185,11 +185,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    array('Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5')
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->post('http://example.tld', 'dummy', 'application/json', null, array('Accept: application/json'));
+        $service->post('http://example.tld', 'dummy', 'application/json', null, ['Accept: application/json']);
     }
 
     /**
@@ -211,7 +211,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->postForm('http://example.tld', array('foo=bar'));
+        $service->postForm('http://example.tld', ['foo=bar']);
     }
 
     /**
@@ -244,10 +244,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testProxify()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666'
-            )
+            ]
         );
         $client = new \Zend\Http\Client('http://example.tld:8080');
         $client = $service->proxify($client);
@@ -266,10 +266,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testProxifyCurlAdapter()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666'
-            )
+            ]
         );
         $service->setDefaultAdapter(new \Zend\Http\Client\Adapter\Curl());
         $client = new \Zend\Http\Client('http://example.tld:8080');
@@ -289,11 +289,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testProxifySocks5()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666',
                 'proxy_type' => 'socks5',
-            )
+            ]
         );
         $client = new \Zend\Http\Client('http://example.tld:8080');
         $client = $service->proxify($client);
@@ -315,10 +315,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testNoProxifyLocal()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666'
-            )
+            ]
         );
         foreach ($this->local as $name => $address) {
             $client = new \Zend\Http\Client($address);
@@ -341,14 +341,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testNoProxifyLocalAddress()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666'
-            ),
-            array(),
-            array (
+            ],
+            [],
+            [
                 'localAddressesRegEx' => $this->localAddressesRegEx
-            )
+            ]
         );
 
         $localAddress = 'http://solr.internal';
@@ -371,14 +371,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testProxifyExternalAddress()
     {
         $service = new Service(
-            array(
+            [
                 'proxy_host' => 'localhost',
                 'proxy_port' => '666'
-            ),
-            array(),
-            array (
+            ],
+            [],
+            [
                 'localAddressesRegEx' => $this->localAddressesRegEx
-            )
+            ]
         );
 
         $externalAddress = 'http://solr.external';
@@ -412,7 +412,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsAssocArrayWithMixedKeys()
     {
-        $arr = array();
+        $arr = [];
         $arr[] = 'foo';
         $arr['foo'] = 'bar';
         $this->assertTrue(Service::isAssocParams($arr));
@@ -425,7 +425,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefaults()
     {
-        $service = new Service(array(), array('foo' => 'bar'));
+        $service = new Service([], ['foo' => 'bar']);
         $client = $service->createClient();
         $clientConfig = $this->getProperty($client, 'config');
         $this->assertEquals($clientConfig['foo'], 'bar');
