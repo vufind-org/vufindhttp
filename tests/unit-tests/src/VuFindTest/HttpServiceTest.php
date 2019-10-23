@@ -26,7 +26,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-
 namespace VuFindTest;
 
 use VuFindHttp\HttpService as Service;
@@ -57,14 +56,22 @@ use VuFindHttp\HttpService as Service;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-
 class ProxyServiceTest extends \PHPUnit\Framework\TestCase
 {
-
+    /**
+     * Example representations of localhost.
+     *
+     * @var array
+     */
     protected $local = array('ipv4 localhost' => 'http://localhost',
                              'ipv4 loopback'  => 'http://127.0.0.1',
                              'ipv6 loopback'  => 'http://[::1]');
 
+    /**
+     * Example custom regular expression for extended local server detection.
+     *
+     * @var string
+     */
     protected $localAddressesRegEx = '@^(localhost|127(\.\d+){3}|\[::1\]|([a-z])+\.internal)@';
 
     /**
@@ -325,6 +332,12 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * Test that a local custom address does not get proxified when correctly
+     * configured.
+     *
+     * @return void
+     */
     public function testNoProxifyLocalAddress()
     {
         $service = new Service(
@@ -349,6 +362,12 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * Test that an external address still gets proxified when a custom local
+     * regular expression is configured.
+     *
+     * @return void
+     */
     public function testProxifyExternalAddress()
     {
         $service = new Service(
