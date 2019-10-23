@@ -40,7 +40,7 @@ namespace VuFindHttp;
 class HttpService implements HttpServiceInterface
 {
     /**
-     * Regular expression matching a request to localhost.
+     * Default regular expression matching a request to localhost.
      *
      * @var string
      */
@@ -54,6 +54,16 @@ class HttpService implements HttpServiceInterface
      * @var array
      */
     protected $proxyConfig;
+
+    /**
+     * Regular expression matching a request to localhost or hosts
+     * that are not proxied.
+     *
+     * @see \Zend\Http\Client\Adapter\Proxy::$config
+     *
+     * @var array
+     */
+    protected $localAddressesRegEx = self::LOCAL_ADDRESS_RE;
 
     /**
      * Default client options.
@@ -74,14 +84,18 @@ class HttpService implements HttpServiceInterface
      *
      * @param array $proxyConfig Proxy configuration
      * @param array $defaults    Default HTTP options
+     * @param array $config      Other configuration
      *
      * @return void
      */
     public function __construct(array $proxyConfig = [],
-        array $defaults = []
+        array $defaults = [], array $config = []
     ) {
         $this->proxyConfig = $proxyConfig;
         $this->defaults = $defaults;
+        if (isset($config['localAddressesRegEx'])) {
+            $this->localAddressesRegEx = $config['localAddressesRegEx'];
+        }
     }
 
     /**
@@ -337,6 +351,6 @@ class HttpService implements HttpServiceInterface
      */
     protected function isLocal($host)
     {
-        return preg_match(self::LOCAL_ADDRESS_RE, $host);
+        return preg_match($this->localAddressesRegEx, $host);
     }
 }
