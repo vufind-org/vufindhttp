@@ -49,7 +49,7 @@ class HttpService implements HttpServiceInterface
     /**
      * Proxy configuration.
      *
-     * @see \Zend\Http\Client\Adapter\Proxy::$config
+     * @see \Laminas\Http\Client\Adapter\Proxy::$config
      *
      * @var array
      */
@@ -59,7 +59,7 @@ class HttpService implements HttpServiceInterface
      * Regular expression matching a request to localhost or hosts
      * that are not proxied.
      *
-     * @see \Zend\Http\Client\Adapter\Proxy::$config
+     * @see \Laminas\Http\Client\Adapter\Proxy::$config
      *
      * @var array
      */
@@ -75,7 +75,7 @@ class HttpService implements HttpServiceInterface
     /**
      * Default adapter
      *
-     * @var \Zend\Http\Client\Adapter\AdapterInterface
+     * @var \Laminas\Http\Client\Adapter\AdapterInterface
      */
     protected $defaultAdapter = null;
 
@@ -101,7 +101,7 @@ class HttpService implements HttpServiceInterface
     /**
      * Set proxy options in a Curl adapter.
      *
-     * @param \Zend\Http\Client\Adapter\Curl $adapter Adapter to configure
+     * @param \Laminas\Http\Client\Adapter\Curl $adapter Adapter to configure
      *
      * @return void
      */
@@ -123,7 +123,7 @@ class HttpService implements HttpServiceInterface
     {
         $default = $this->defaults['adapter']
             ?? ($this->defaultAdapter ? get_class($this->defaultAdapter) : '');
-        return $default === 'Zend\Http\Client\Adapter\Curl';
+        return $default === 'Laminas\Http\Client\Adapter\Curl';
     }
 
     /**
@@ -131,12 +131,12 @@ class HttpService implements HttpServiceInterface
      *
      * Returns the client given as argument with appropriate proxy setup.
      *
-     * @param \Zend\Http\Client $client  HTTP client
-     * @param array             $options ZF2 ProxyAdapter options
+     * @param \Laminas\Http\Client $client  HTTP client
+     * @param array                $options ZF2 ProxyAdapter options
      *
-     * @return \Zend\Http\Client
+     * @return \Laminas\Http\Client
      */
-    public function proxify(\Zend\Http\Client $client, array $options = [])
+    public function proxify(\Laminas\Http\Client $client, array $options = [])
     {
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
@@ -144,7 +144,7 @@ class HttpService implements HttpServiceInterface
                 $proxyType =  $this->proxyConfig['proxy_type'] ?? 'default';
 
                 if ($proxyType == 'socks5') {
-                    $adapter = new \Zend\Http\Client\Adapter\Curl();
+                    $adapter = new \Laminas\Http\Client\Adapter\Curl();
                     // Apply standard proxy options for Curl adapter:
                     $this->setCurlProxyOptions($adapter);
                     // Add SOCKS5 settings:
@@ -156,10 +156,10 @@ class HttpService implements HttpServiceInterface
                     // configure it for proxy compatibility; otherwise, create
                     // a fresh Proxy adapter.
                     if ($this->hasCurlAdapterAsDefault()) {
-                        $adapter = new \Zend\Http\Client\Adapter\Curl();
+                        $adapter = new \Laminas\Http\Client\Adapter\Curl();
                         $this->setCurlProxyOptions($adapter);
                     } else {
-                        $adapter = new \Zend\Http\Client\Adapter\Proxy();
+                        $adapter = new \Laminas\Http\Client\Adapter\Proxy();
                         $options = array_replace($this->proxyConfig, $options);
                         $adapter->setOptions($options);
                     }
@@ -178,7 +178,7 @@ class HttpService implements HttpServiceInterface
      * @param float  $timeout Request timeout in seconds
      * @param array  $headers Request headers
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function get($url, array $params = [], $timeout = null,
         array $headers = []
@@ -192,7 +192,7 @@ class HttpService implements HttpServiceInterface
             }
         }
         $client
-            = $this->createClient($url, \Zend\Http\Request::METHOD_GET, $timeout);
+            = $this->createClient($url, \Laminas\Http\Request::METHOD_GET, $timeout);
         if ($headers) {
             $client->setHeaders($headers);
         }
@@ -208,13 +208,13 @@ class HttpService implements HttpServiceInterface
      * @param float  $timeout Request timeout in seconds
      * @param array  $headers Request http-headers
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function post($url, $body = null, $type = 'application/octet-stream',
         $timeout = null, array $headers = []
     ) {
-        $client
-            = $this->createClient($url, \Zend\Http\Request::METHOD_POST, $timeout);
+        $client = $this
+            ->createClient($url, \Laminas\Http\Request::METHOD_POST, $timeout);
         $client->setRawBody($body);
         $client->setHeaders(
             array_merge(
@@ -232,23 +232,25 @@ class HttpService implements HttpServiceInterface
      * @param array  $params  Form data
      * @param float  $timeout Request timeout in seconds
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function postForm($url, array $params = [], $timeout = null)
     {
         $body = $this->createQueryString($params);
-        return $this->post($url, $body, \Zend\Http\Client::ENC_URLENCODED, $timeout);
+        return $this->post(
+            $url, $body, \Laminas\Http\Client::ENC_URLENCODED, $timeout
+        );
     }
 
     /**
      * Set a default HTTP adapter (primarily for testing purposes).
      *
-     * @param \Zend\Http\Client\Adapter\AdapterInterface $adapter Adapter
+     * @param \Laminas\Http\Client\Adapter\AdapterInterface $adapter Adapter
      *
      * @return void
      */
     public function setDefaultAdapter(
-        \Zend\Http\Client\Adapter\AdapterInterface $adapter
+        \Laminas\Http\Client\Adapter\AdapterInterface $adapter
     ) {
         $this->defaultAdapter = $adapter;
     }
@@ -260,12 +262,12 @@ class HttpService implements HttpServiceInterface
      * @param string $method  Request method
      * @param float  $timeout Request timeout in seconds
      *
-     * @return \Zend\Http\Client
+     * @return \Laminas\Http\Client
      */
     public function createClient($url = null,
-        $method = \Zend\Http\Request::METHOD_GET, $timeout = null
+        $method = \Laminas\Http\Request::METHOD_GET, $timeout = null
     ) {
-        $client = new \Zend\Http\Client();
+        $client = new \Laminas\Http\Client();
         $client->setMethod($method);
         if (!empty($this->defaults)) {
             $client->setOptions($this->defaults);
@@ -304,18 +306,18 @@ class HttpService implements HttpServiceInterface
     /**
      * Send HTTP request and return response.
      *
-     * @param \Zend\Http\Client $client HTTP client to use
+     * @param \Laminas\Http\Client $client HTTP client to use
      *
      * @throws Exception\RuntimeException
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      *
      * @todo Catch more exceptions, maybe?
      */
-    protected function send(\Zend\Http\Client $client)
+    protected function send(\Laminas\Http\Client $client)
     {
         try {
             $response = $client->send();
-        } catch (\Zend\Http\Client\Exception\RuntimeException $e) {
+        } catch (\Laminas\Http\Client\Exception\RuntimeException $e) {
             throw new Exception\RuntimeException(
                 sprintf('Zend HTTP Client exception: %s', $e),
                 -1,

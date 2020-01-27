@@ -82,14 +82,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testGetWithAssocParams()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld?foo=bar&bar%5B0%5D=baz')
+                    new \Laminas\Uri\Http('http://example.tld?foo=bar&bar%5B0%5D=baz')
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -104,14 +104,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testGetWithParamPairs()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld?foo=bar&bar=baz&bar=bar')
+                    new \Laminas\Uri\Http('http://example.tld?foo=bar&bar=baz&bar=bar')
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -126,14 +126,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testGetAppendsQueryPart()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld?foo=bar&bar=baz')
+                    new \Laminas\Uri\Http('http://example.tld?foo=bar&bar=baz')
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -148,18 +148,18 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testGetAppendsHeaders()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('GET'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld?foo=bar')
+                    new \Laminas\Uri\Http('http://example.tld?foo=bar')
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -174,18 +174,18 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testPostAppendsHeaders()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('POST'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld')
+                    new \Laminas\Uri\Http('http://example.tld')
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Zend\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -200,14 +200,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testPostForm()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('POST'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld', 'foo=bar&bar=baz')
+                    new \Laminas\Uri\Http('http://example.tld', 'foo=bar&bar=baz')
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -222,14 +222,14 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testSendPostRequestEmptyBody()
     {
         $service = new Service();
-        $adapter = $this->getMockBuilder('Zend\Http\Client\Adapter\Test')
+        $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
             ->setMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
                 $this->equalTo('POST'),
                 $this->equalTo(
-                    new \Zend\Uri\Http('http://example.tld')
+                    new \Laminas\Uri\Http('http://example.tld')
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -249,10 +249,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 'proxy_port' => '666'
             ]
         );
-        $client = new \Zend\Http\Client('http://example.tld:8080');
+        $client = new \Laminas\Http\Client('http://example.tld:8080');
         $client = $service->proxify($client);
         $adapter = $client->getAdapter();
-        $this->assertInstanceOf('Zend\Http\Client\Adapter\Proxy', $adapter);
+        $this->assertInstanceOf('Laminas\Http\Client\Adapter\Proxy', $adapter);
         $config = $adapter->getConfig();
         $this->assertEquals('localhost', $config['proxy_host']);
         $this->assertEquals('666', $config['proxy_port']);
@@ -271,11 +271,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 'proxy_port' => '666'
             ]
         );
-        $service->setDefaultAdapter(new \Zend\Http\Client\Adapter\Curl());
-        $client = new \Zend\Http\Client('http://example.tld:8080');
+        $service->setDefaultAdapter(new \Laminas\Http\Client\Adapter\Curl());
+        $client = new \Laminas\Http\Client('http://example.tld:8080');
         $client = $service->proxify($client);
         $adapter = $client->getAdapter();
-        $this->assertInstanceOf('Zend\Http\Client\Adapter\Curl', $adapter);
+        $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
         $config = $adapter->getConfig();
         $this->assertEquals('localhost', $config['curloptions'][CURLOPT_PROXY]);
         $this->assertEquals('666', $config['curloptions'][CURLOPT_PROXYPORT]);
@@ -295,10 +295,10 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 'proxy_type' => 'socks5',
             ]
         );
-        $client = new \Zend\Http\Client('http://example.tld:8080');
+        $client = new \Laminas\Http\Client('http://example.tld:8080');
         $client = $service->proxify($client);
         $adapter = $client->getAdapter();
-        $this->assertInstanceOf('Zend\Http\Client\Adapter\Curl', $adapter);
+        $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
         $config = $adapter->getConfig();
         $this->assertEquals('localhost', $config['curloptions'][CURLOPT_PROXY]);
         $this->assertEquals('666', $config['curloptions'][CURLOPT_PROXYPORT]);
@@ -321,11 +321,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
             ]
         );
         foreach ($this->local as $name => $address) {
-            $client = new \Zend\Http\Client($address);
-            $client->setAdapter(new \Zend\Http\Client\Adapter\Test());
+            $client = new \Laminas\Http\Client($address);
+            $client->setAdapter(new \Laminas\Http\Client\Adapter\Test());
             $client = $service->proxify($client);
             $this->assertInstanceOf(
-                'Zend\Http\Client\Adapter\Test',
+                'Laminas\Http\Client\Adapter\Test',
                 $client->getAdapter(),
                 sprintf('Failed to proxify %s: %s', $name, $address)
             );
@@ -352,11 +352,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         );
 
         $localAddress = 'http://solr.internal';
-        $client = new \Zend\Http\Client($localAddress);
-        $client->setAdapter(new \Zend\Http\Client\Adapter\Test());
+        $client = new \Laminas\Http\Client($localAddress);
+        $client->setAdapter(new \Laminas\Http\Client\Adapter\Test());
         $client = $service->proxify($client);
         $this->assertInstanceOf(
-            'Zend\Http\Client\Adapter\Test',
+            'Laminas\Http\Client\Adapter\Test',
             $client->getAdapter(),
             sprintf('Failed to proxify %s', $localAddress)
         );
@@ -382,11 +382,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         );
 
         $externalAddress = 'http://solr.external';
-        $client = new \Zend\Http\Client($externalAddress);
-        $client->setAdapter(new \Zend\Http\Client\Adapter\Test());
+        $client = new \Laminas\Http\Client($externalAddress);
+        $client->setAdapter(new \Laminas\Http\Client\Adapter\Test());
         $client = $service->proxify($client);
         $this->assertInstanceOf(
-            'Zend\Http\Client\Adapter\Proxy',
+            'Laminas\Http\Client\Adapter\Proxy',
             $client->getAdapter(),
             sprintf('Failed to proxify %s', $externalAddress)
         );
@@ -439,7 +439,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     public function testTimeout()
     {
         $service = new Service();
-        $client = $service->createClient(null, \Zend\Http\Request::METHOD_GET, 67);
+        $client = $service->createClient(null, \Laminas\Http\Request::METHOD_GET, 67);
         $clientConfig = $this->getProperty($client, 'config');
         $this->assertEquals($clientConfig['timeout'], 67);
     }
