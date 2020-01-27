@@ -44,12 +44,12 @@ interface HttpServiceInterface
      *
      * Returns the client given as argument with appropriate proxy setup.
      *
-     * @param \Zend\Http\Client $client  HTTP client
-     * @param array             $options ZF2 ProxyAdapter options
+     * @param \Laminas\Http\Client $client  HTTP client
+     * @param array                $options ZF2 ProxyAdapter options
      *
-     * @return \Zend\Http\Client
+     * @return \Laminas\Http\Client
      */
-    public function proxify(\Zend\Http\Client $client, array $options = []);
+    public function proxify(\Laminas\Http\Client $client, array $options = []);
 
     /**
      * Perform a GET request.
@@ -59,7 +59,7 @@ interface HttpServiceInterface
      * @param float  $timeout Request timeout in seconds
      * @param array  $headers Request headers
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function get($url, array $params = [], $timeout = null,
         array $headers = []
@@ -74,7 +74,7 @@ interface HttpServiceInterface
      * @param float  $timeout Request timeout in seconds
      * @param array  $headers Request http-headers
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function post($url, $body = null, $type = 'application/octet-stream',
         $timeout = null, array $headers = []
@@ -87,7 +87,7 @@ interface HttpServiceInterface
      * @param array  $params  Form data
      * @param float  $timeout Request timeout in seconds
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function postForm($url, array $params = [], $timeout = null);
 
@@ -98,9 +98,9 @@ interface HttpServiceInterface
      * @param string $method  Request method
      * @param float  $timeout Request timeout in seconds
      *
-     * @return \Zend\Http\Client
+     * @return \Laminas\Http\Client
      */
     public function createClient($url = null,
-        $method = \Zend\Http\Request::METHOD_GET, $timeout = null
+        $method = \Laminas\Http\Request::METHOD_GET, $timeout = null
     );
 }

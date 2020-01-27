@@ -4,7 +4,7 @@ VuFindHttp
 
 Introduction
 ------------
-VuFindHttp contains a convenience class built around Zend\Http\Client which allows
+VuFindHttp contains a convenience class built around Laminas\Http\Client which allows
 creation of proxy-aware clients and convenient GET/POST behavior. This is part of
 the VuFind project (https://vufind.org) but may be useful for any software dealing
 with HTTP calls.
