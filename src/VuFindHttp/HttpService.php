@@ -319,7 +319,7 @@ class HttpService implements HttpServiceInterface
             $response = $client->send();
         } catch (\Laminas\Http\Client\Exception\RuntimeException $e) {
             throw new Exception\RuntimeException(
-                sprintf('Zend HTTP Client exception: %s', $e),
+                sprintf('Laminas HTTP Client exception: %s', $e),
                 -1,
                 $e
             );
