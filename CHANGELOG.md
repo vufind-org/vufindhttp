@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.1.0 - 2020-07-01
+
+### Added
+
+- Support for the 'socks5_hostname' proxy type setting.
+
+### Changed
+
+- CURLOPT_FOLLOWLOCATION is no longer set by default when the proxy type is 'socks5'; it can still be set through the $defaults constructor parameter, if needed.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- A reference to Zend in an exception message has been changed to Laminas.
+
 ## 3.0.0 - 2020-01-27
 
 ### Added
