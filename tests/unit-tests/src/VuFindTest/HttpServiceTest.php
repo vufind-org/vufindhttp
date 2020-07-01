@@ -159,7 +159,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -185,7 +185,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas\Http\Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
+                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -305,6 +305,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             CURLPROXY_SOCKS5, $config['curloptions'][CURLOPT_PROXYTYPE]
         );
+        $this->assertNotContains(CURLOPT_FOLLOWLOCATION, $config['curloptions']);
     }
 
     /**
@@ -442,6 +443,49 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $client = $service->createClient(null, \Laminas\Http\Request::METHOD_GET, 67);
         $clientConfig = $this->getProperty($client, 'config');
         $this->assertEquals($clientConfig['timeout'], 67);
+    }
+
+    /**
+     * Test defaults with Curl adapter.
+     *
+     * @return void
+     */
+    public function testCurlAdapterDefaults()
+    {
+        $service = new Service(
+            [],
+            ['adapter' => '\Laminas\Http\Client\Adapter\Curl']
+        );
+        $client = $service->createClient('http://example.tld:8080');
+        $adapter = $client->getAdapter();
+        $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
+        $config = $adapter->getConfig();
+        $this->assertTrue(empty($config['curloptions']));
+    }
+
+    /**
+     * Test defaults with Curl adapter.
+     *
+     * @return void
+     */
+    public function testCurlAdapterFollowLocation()
+    {
+        $service = new Service(
+            [],
+            [
+                'adapter' => '\Laminas\Http\Client\Adapter\Curl',
+                'curloptions' => [
+                    52 => '1'
+                ]
+            ]
+        );
+        $client = $service->createClient('http://example.tld:8080');
+        $adapter = $client->getAdapter();
+        $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
+        $config = $adapter->getConfig();
+        $this->assertEquals(
+            '1', $config['curloptions'][CURLOPT_FOLLOWLOCATION] ?? null
+        );
     }
 
     /**

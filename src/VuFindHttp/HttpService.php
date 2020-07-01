@@ -112,6 +112,15 @@ class HttpService implements HttpServiceInterface
             $adapter
                 ->setCurlOption(CURLOPT_PROXYPORT, $this->proxyConfig['proxy_port']);
         }
+        // HTTP is default, so handle only the SOCKS 5 proxy types
+        switch ($this->proxyConfig['proxy_type'] ?? '') {
+        case 'socks5':
+            $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            break;
+        case 'socks5_hostname':
+            $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5_HOSTNAME);
+            break;
+        }
     }
 
     /**
@@ -132,7 +141,7 @@ class HttpService implements HttpServiceInterface
      * Returns the client given as argument with appropriate proxy setup.
      *
      * @param \Laminas\Http\Client $client  HTTP client
-     * @param array                $options ZF2 ProxyAdapter options
+     * @param array                $options Laminas ProxyAdapter options
      *
      * @return \Laminas\Http\Client
      */
@@ -141,15 +150,12 @@ class HttpService implements HttpServiceInterface
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
             if (!$this->isLocal($host)) {
-                $proxyType =  $this->proxyConfig['proxy_type'] ?? 'default';
+                $proxyType = $this->proxyConfig['proxy_type'] ?? 'default';
 
-                if ($proxyType == 'socks5') {
+                if (in_array($proxyType, ['socks5', 'socks5_hostname'])) {
                     $adapter = new \Laminas\Http\Client\Adapter\Curl();
-                    // Apply standard proxy options for Curl adapter:
+                    // Apply proxy options for Curl adapter:
                     $this->setCurlProxyOptions($adapter);
-                    // Add SOCKS5 settings:
-                    $adapter->setCurlOption(CURLOPT_FOLLOWLOCATION, true);
-                    $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                     $client->setAdapter($adapter);
                 } elseif ($proxyType == 'default') {
                     // If the user has manually configured a Curl adapter,
