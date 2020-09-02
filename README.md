@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/vufind-org/vufindhttp.svg?branch=master)](https://travis-ci.org/vufind-org/vufindhttp)
+[![Build Status](https://travis-ci.org/vufind-org/vufindhttp.svg?branch=dev)](https://travis-ci.org/vufind-org/vufindhttp)
 VuFindHttp
 ==========
 
