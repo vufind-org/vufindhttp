@@ -396,12 +396,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     /**
      * Test for runtime exception.
      *
-     * @expectedException \VuFindHttp\Exception\RuntimeException
-     *
      * @return void
      */
     public function testRuntimeException()
     {
+        $this->expectException(\VuFindHttp\Exception\RuntimeException::class);
         $service = new Service();
         $service->get('http://example.tld');
     }
