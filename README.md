@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/vufind-org/vufindhttp.svg?branch=dev)](https://travis-ci.com/vufind-org/vufindhttp)
+[![CI Status](https://github.com/vufind-org/vufindhttp/actions/workflows/ci.yaml/badge.svg?branch=dev)](https://github.com/vufind-org/vufindhttp/actions/workflows/ci.yaml)
 VuFindHttp
 ==========
 
