@@ -61,7 +61,7 @@ class HttpService implements HttpServiceInterface
      *
      * @see \Laminas\Http\Client\Adapter\Proxy::$config
      *
-     * @var array
+     * @var string
      */
     protected $localAddressesRegEx = self::LOCAL_ADDRESS_RE;
 
@@ -149,7 +149,7 @@ class HttpService implements HttpServiceInterface
     {
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
-            if (!$this->isLocal($host)) {
+            if (null !== $host && !$this->isLocal($host)) {
                 $proxyType = $this->proxyConfig['proxy_type'] ?? 'default';
 
                 if (in_array($proxyType, ['socks5', 'socks5_hostname'])) {
