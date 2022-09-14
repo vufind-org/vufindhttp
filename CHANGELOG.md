@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- Improved compatibility with PHP 8.1.
 
 ## 3.1.0 - 2020-07-01
 
