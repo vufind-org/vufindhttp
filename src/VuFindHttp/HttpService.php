@@ -149,7 +149,7 @@ class HttpService implements HttpServiceInterface
     {
         if ($this->proxyConfig) {
             $host = $client->getUri()->getHost();
-            if (null !== $host && !$this->isLocal($host)) {
+            if (null === $host || !$this->isLocal($host)) {
                 $proxyType = $this->proxyConfig['proxy_type'] ?? 'default';
 
                 if (in_array($proxyType, ['socks5', 'socks5_hostname'])) {
