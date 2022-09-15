@@ -61,7 +61,10 @@ interface HttpServiceInterface
      *
      * @return \Laminas\Http\Response
      */
-    public function get($url, array $params = [], $timeout = null,
+    public function get(
+        $url,
+        array $params = [],
+        $timeout = null,
         array $headers = []
     );
 
@@ -76,8 +79,12 @@ interface HttpServiceInterface
      *
      * @return \Laminas\Http\Response
      */
-    public function post($url, $body = null, $type = 'application/octet-stream',
-        $timeout = null, array $headers = []
+    public function post(
+        $url,
+        $body = null,
+        $type = 'application/octet-stream',
+        $timeout = null,
+        array $headers = []
     );
 
     /**
@@ -100,7 +107,9 @@ interface HttpServiceInterface
      *
      * @return \Laminas\Http\Client
      */
-    public function createClient($url = null,
-        $method = \Laminas\Http\Request::METHOD_GET, $timeout = null
+    public function createClient(
+        $url = null,
+        $method = \Laminas\Http\Request::METHOD_GET,
+        $timeout = null
     );
 }

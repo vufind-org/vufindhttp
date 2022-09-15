@@ -44,7 +44,7 @@ class HttpService implements HttpServiceInterface
      *
      * @var string
      */
-    const LOCAL_ADDRESS_RE = '@^(localhost|127(\.\d+){3}|\[::1\])@';
+    public const LOCAL_ADDRESS_RE = '@^(localhost|127(\.\d+){3}|\[::1\])@';
 
     /**
      * Proxy configuration.
@@ -88,8 +88,10 @@ class HttpService implements HttpServiceInterface
      *
      * @return void
      */
-    public function __construct(array $proxyConfig = [],
-        array $defaults = [], array $config = []
+    public function __construct(
+        array $proxyConfig = [],
+        array $defaults = [],
+        array $config = []
     ) {
         $this->proxyConfig = $proxyConfig;
         $this->defaults = $defaults;
@@ -186,7 +188,10 @@ class HttpService implements HttpServiceInterface
      *
      * @return \Laminas\Http\Response
      */
-    public function get($url, array $params = [], $timeout = null,
+    public function get(
+        $url,
+        array $params = [],
+        $timeout = null,
         array $headers = []
     ) {
         if ($params) {
@@ -216,8 +221,12 @@ class HttpService implements HttpServiceInterface
      *
      * @return \Laminas\Http\Response
      */
-    public function post($url, $body = null, $type = 'application/octet-stream',
-        $timeout = null, array $headers = []
+    public function post(
+        $url,
+        $body = null,
+        $type = 'application/octet-stream',
+        $timeout = null,
+        array $headers = []
     ) {
         $client = $this
             ->createClient($url, \Laminas\Http\Request::METHOD_POST, $timeout);
@@ -244,7 +253,10 @@ class HttpService implements HttpServiceInterface
     {
         $body = $this->createQueryString($params);
         return $this->post(
-            $url, $body, \Laminas\Http\Client::ENC_URLENCODED, $timeout
+            $url,
+            $body,
+            \Laminas\Http\Client::ENC_URLENCODED,
+            $timeout
         );
     }
 
@@ -270,8 +282,10 @@ class HttpService implements HttpServiceInterface
      *
      * @return \Laminas\Http\Client
      */
-    public function createClient($url = null,
-        $method = \Laminas\Http\Request::METHOD_GET, $timeout = null
+    public function createClient(
+        $url = null,
+        $method = \Laminas\Http\Request::METHOD_GET,
+        $timeout = null
     ) {
         $client = new \Laminas\Http\Client();
         $client->setMethod($method);
