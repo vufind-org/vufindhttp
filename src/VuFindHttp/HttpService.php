@@ -116,12 +116,13 @@ class HttpService implements HttpServiceInterface
         }
         // HTTP is default, so handle only the SOCKS 5 proxy types
         switch ($this->proxyConfig['proxy_type'] ?? '') {
-        case 'socks5':
-            $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            break;
-        case 'socks5_hostname':
-            $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5_HOSTNAME);
-            break;
+            case 'socks5':
+                $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+                break;
+            case 'socks5_hostname':
+                $adapter
+                    ->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5_HOSTNAME);
+                break;
         }
     }
 
