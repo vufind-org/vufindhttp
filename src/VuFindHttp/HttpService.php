@@ -120,7 +120,8 @@ class HttpService implements HttpServiceInterface
                 $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 break;
             case 'socks5_hostname':
-                $adapter->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5_HOSTNAME);
+                $adapter
+                    ->setCurlOption(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5_HOSTNAME);
                 break;
         }
     }
