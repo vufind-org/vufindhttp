@@ -160,11 +160,20 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
+                    [
+                        'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
+                        'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
+                        'Accept' => 'application/json'
+                    ]
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', ['foo=bar'], 'test', ["Content-type: application/json", "Accept: application/json"]);
+        $service->get(
+            'http://example.tld',
+            ['foo=bar'],
+            'test',
+            ["Content-type: application/json", "Accept: application/json"]
+        );
     }
 
     /**
@@ -186,7 +195,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
+                    [
+                        'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
+                        'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
+                        'Accept' => 'application/json', 'Content-Length' => '5'
+                    ]
                 )
             );
         $service->setDefaultAdapter($adapter);

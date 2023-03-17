@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HttpServiceAwareTrait unit test.
  *
@@ -64,7 +65,9 @@ class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
     public function testSetHttpService()
     {
         $mock = $this->getMockBuilder('VuFindHttp\HttpService')->getMock();
-        $test = new HttpServiceAwareTraitTestImplementation();
+        $test = new class () {
+            use \VuFindHttp\HttpServiceAwareTrait;
+        };
         $test->setHttpService($mock);
         $this->assertEquals($mock, $this->getProperty($test, 'httpService'));
     }
@@ -87,9 +90,4 @@ class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
         $reflectionProperty->setAccessible(true);
         return $reflectionProperty->getValue($object);
     }
-}
-
-class HttpServiceAwareTraitTestImplementation
-{
-    use \VuFindHttp\HttpServiceAwareTrait;
 }
