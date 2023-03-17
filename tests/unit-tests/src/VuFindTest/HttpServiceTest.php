@@ -26,6 +26,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
+
 namespace VuFindTest;
 
 use VuFindHttp\HttpService as Service;
@@ -159,11 +160,20 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json']
+                    [
+                        'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
+                        'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
+                        'Accept' => 'application/json'
+                    ]
                 )
             );
         $service->setDefaultAdapter($adapter);
-        $service->get('http://example.tld', ['foo=bar'], 'test', ["Content-type: application/json", "Accept: application/json"]);
+        $service->get(
+            'http://example.tld',
+            ['foo=bar'],
+            'test',
+            ["Content-type: application/json", "Accept: application/json"]
+        );
     }
 
     /**
@@ -185,7 +195,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                 ),
                 $this->equalTo('1.1'),
                 $this->equalTo(
-                    ['Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate','User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Content-Length' => '5']
+                    [
+                        'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
+                        'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
+                        'Accept' => 'application/json', 'Content-Length' => '5'
+                    ]
                 )
             );
         $service->setDefaultAdapter($adapter);
@@ -303,7 +317,8 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('localhost', $config['curloptions'][CURLOPT_PROXY]);
         $this->assertEquals('666', $config['curloptions'][CURLOPT_PROXYPORT]);
         $this->assertEquals(
-            CURLPROXY_SOCKS5, $config['curloptions'][CURLOPT_PROXYTYPE]
+            CURLPROXY_SOCKS5,
+            $config['curloptions'][CURLOPT_PROXYTYPE]
         );
         $this->assertNotContains(CURLOPT_FOLLOWLOCATION, $config['curloptions']);
     }
@@ -483,7 +498,8 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
         $config = $adapter->getConfig();
         $this->assertEquals(
-            '1', $config['curloptions'][CURLOPT_FOLLOWLOCATION] ?? null
+            '1',
+            $config['curloptions'][CURLOPT_FOLLOWLOCATION] ?? null
         );
     }
 

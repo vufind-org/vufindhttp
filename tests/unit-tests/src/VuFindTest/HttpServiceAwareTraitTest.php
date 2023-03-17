@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HttpServiceAwareTrait unit test.
  *
@@ -25,6 +26,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
+
 namespace VuFindTest;
 
 /**
@@ -63,7 +65,9 @@ class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
     public function testSetHttpService()
     {
         $mock = $this->getMockBuilder('VuFindHttp\HttpService')->getMock();
-        $test = new HttpServiceAwareTraitTestImplementation();
+        $test = new class () {
+            use \VuFindHttp\HttpServiceAwareTrait;
+        };
         $test->setHttpService($mock);
         $this->assertEquals($mock, $this->getProperty($test, 'httpService'));
     }
@@ -86,9 +90,4 @@ class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
         $reflectionProperty->setAccessible(true);
         return $reflectionProperty->getValue($object);
     }
-}
-
-class HttpServiceAwareTraitTestImplementation
-{
-    use \VuFindHttp\HttpServiceAwareTrait;
 }
