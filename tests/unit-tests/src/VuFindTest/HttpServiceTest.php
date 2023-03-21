@@ -163,7 +163,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                     [
                         'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
                         'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
-                        'Accept' => 'application/json'
+                        'Accept' => 'application/json',
                     ]
                 )
             );
@@ -198,7 +198,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
                     [
                         'Host' => 'example.tld', 'Connection' => 'close', 'Accept-Encoding' => 'gzip, deflate',
                         'User-Agent' => 'Laminas_Http_Client', 'Content-Type' => 'application/json',
-                        'Accept' => 'application/json', 'Content-Length' => '5'
+                        'Accept' => 'application/json', 'Content-Length' => '5',
                     ]
                 )
             );
@@ -260,7 +260,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $service = new Service(
             [
                 'proxy_host' => 'localhost',
-                'proxy_port' => '666'
+                'proxy_port' => '666',
             ]
         );
         $client = new \Laminas\Http\Client('http://example.tld:8080');
@@ -282,7 +282,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $service = new Service(
             [
                 'proxy_host' => 'localhost',
-                'proxy_port' => '666'
+                'proxy_port' => '666',
             ]
         );
         $service->setDefaultAdapter(new \Laminas\Http\Client\Adapter\Curl());
@@ -333,7 +333,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $service = new Service(
             [
                 'proxy_host' => 'localhost',
-                'proxy_port' => '666'
+                'proxy_port' => '666',
             ]
         );
         foreach ($this->local as $name => $address) {
@@ -359,11 +359,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $service = new Service(
             [
                 'proxy_host' => 'localhost',
-                'proxy_port' => '666'
+                'proxy_port' => '666',
             ],
             [],
             [
-                'localAddressesRegEx' => $this->localAddressesRegEx
+                'localAddressesRegEx' => $this->localAddressesRegEx,
             ]
         );
 
@@ -389,11 +389,11 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $service = new Service(
             [
                 'proxy_host' => 'localhost',
-                'proxy_port' => '666'
+                'proxy_port' => '666',
             ],
             [],
             [
-                'localAddressesRegEx' => $this->localAddressesRegEx
+                'localAddressesRegEx' => $this->localAddressesRegEx,
             ]
         );
 
@@ -474,7 +474,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
         $adapter = $client->getAdapter();
         $this->assertInstanceOf('Laminas\Http\Client\Adapter\Curl', $adapter);
         $config = $adapter->getConfig();
-        $this->assertTrue(empty($config['curloptions']));
+        $this->assertFalse(isset($config['curloptions']));
     }
 
     /**
@@ -489,8 +489,8 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
             [
                 'adapter' => '\Laminas\Http\Client\Adapter\Curl',
                 'curloptions' => [
-                    52 => '1'
-                ]
+                    52 => '1',
+                ],
             ]
         );
         $client = $service->createClient('http://example.tld:8080');
