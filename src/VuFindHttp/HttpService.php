@@ -29,6 +29,10 @@
 
 namespace VuFindHttp;
 
+use function get_class;
+use function in_array;
+use function strlen;
+
 /**
  * VuFind HTTP service.
  *
