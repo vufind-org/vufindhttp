@@ -172,7 +172,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
             'http://example.tld',
             ['foo=bar'],
             'test',
-            ["Content-type: application/json", "Accept: application/json"]
+            ['Content-type: application/json', 'Accept: application/json']
         );
     }
 

@@ -202,7 +202,7 @@ class HttpService implements HttpServiceInterface
     ) {
         if ($params) {
             $query = $this->createQueryString($params);
-            if (strpos($url, '?') !== false) {
+            if (str_contains($url, '?')) {
                 $url .= '&' . $query;
             } else {
                 $url .= '?' . $query;
