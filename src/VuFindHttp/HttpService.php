@@ -239,7 +239,7 @@ class HttpService implements HttpServiceInterface
         $client->setRawBody($body);
         $client->setHeaders(
             array_merge(
-                ['Content-Type' => $type, 'Content-Length' => strlen($body)],
+                ['Content-Type' => $type, 'Content-Length' => strlen($body ?? '')],
                 $headers
             )
         );

@@ -57,7 +57,7 @@ use VuFindHttp\HttpService as Service;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development
  */
-class ProxyServiceTest extends \PHPUnit\Framework\TestCase
+class HttpServiceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Example representations of localhost.
@@ -84,7 +84,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -106,7 +106,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -128,7 +128,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -150,7 +150,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -185,7 +185,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -215,7 +215,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
@@ -237,7 +237,7 @@ class ProxyServiceTest extends \PHPUnit\Framework\TestCase
     {
         $service = new Service();
         $adapter = $this->getMockBuilder('Laminas\Http\Client\Adapter\Test')
-            ->setMethods(['write'])->getMock();
+            ->onlyMethods(['write'])->getMock();
         $adapter->expects($this->once())
             ->method('write')
             ->with(
