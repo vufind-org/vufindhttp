@@ -56,7 +56,7 @@
 
   <!-- PHP CodeSniffer -->
   <target name="phpcbf">
-    <exec executable="${srcdir}/vendor/bin/phpcbf"  escape="false" passthru="true" checkreturn="true" />
+    <exec executable="${srcdir}/vendor/bin/phpcbf" escape="false" passthru="true" checkreturn="true">
       <arg line="--standard=${srcdir}/tests/phpcs.xml" />
     </exec>
   </target>
