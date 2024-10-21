@@ -31,6 +31,8 @@ namespace VuFindTest;
 
 use VuFindHttp\HttpService as Service;
 
+use function sprintf;
+
 /**
  * Proxy service unit test.
  *
