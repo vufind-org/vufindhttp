@@ -31,6 +31,7 @@ namespace VuFindHttp;
 
 use function get_class;
 use function in_array;
+use function sprintf;
 use function strlen;
 
 /**
