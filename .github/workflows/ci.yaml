@@ -18,7 +18,7 @@ jobs:
           - php-version: 8.2
             phing_tasks: "phpunitfast"
           - php-version: 8.3
-            phing_tasks: "phpunitfast phpcs-console php-cs-fixer-dryrun phpstan-console"
+            phing_tasks: "phpunitfast phpcs-console php-cs-fixer-dryrun phpstan-console rector-console"
 
     steps:
       - name: Setup PHP
