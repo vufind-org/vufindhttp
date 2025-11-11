@@ -27,6 +27,13 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: intl, xsl
 
+      - name: Cache rector data
+        uses: actions/cache@v4
+        with:
+          path: .rector
+          key: "php-${{ matrix.php-version }}-rector-${{ github.sha }}"
+          restore-keys: "php-${{ matrix.php-version }}-rector-"
+
       - name: Checkout
         uses: actions/checkout@v4
 
