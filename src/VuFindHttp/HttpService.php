@@ -201,7 +201,7 @@ class HttpService implements HttpServiceInterface
         $timeout = null,
         array $headers = []
     ) {
-        if ($params) {
+        if ($params !== []) {
             $query = $this->createQueryString($params);
             if (str_contains($url, '?')) {
                 $url .= '&' . $query;
@@ -211,7 +211,7 @@ class HttpService implements HttpServiceInterface
         }
         $client
             = $this->createClient($url, \Laminas\Http\Request::METHOD_GET, $timeout);
-        if ($headers) {
+        if ($headers !== []) {
             $client->setHeaders($headers);
         }
         return $this->send($client);
