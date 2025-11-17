@@ -31,7 +31,6 @@
         "friendsofphp/php-cs-fixer": "3.89.2",
         "guzzlehttp/guzzle": "^7.8.1",
         "laminas/laminas-uri": ">=2.2",
-        "pear/http_request2": "2.6.0",
         "phpmd/phpmd": "2.15.0",
         "phpstan/phpstan": "2.1.32",
         "phpunit/phpunit": "11.5.43",
