@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="vufindhttp" basedir="." default="main">
-  <property name="sh" value="/bin/sh" />
-  <property name="tmp" value="/tmp" />
-  <property name="package"  value="${phing.project.name}" override="true" />
-  <property name="builddir" value="${tmp}/build/${phing.project.name}" override="true" />
-  <property name="srcdir"   value="${project.basedir}" override="true" />
-  <property name="skip_phpdoc" value="false" />
-  <property name="phpdoc_version" value="3.3.1" />
-  <property name="phpunit_command" value="${srcdir}/vendor/bin/phpunit" />
-
-  <!-- Main Target -->
-  <target name="main" description="main target">
     <trycatch property="exceptionmsg">
       <try>
         <phingcall target="startup" />
