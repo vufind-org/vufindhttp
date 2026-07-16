@@ -58,7 +58,7 @@ namespace VuFindTest;
 class HttpServiceAwareTraitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test setter
+     * Test setter.
      *
      * @return void
      */

@@ -41,7 +41,7 @@ namespace VuFindHttp;
 trait HttpServiceAwareTrait
 {
     /**
-     * HTTP service
+     * HTTP service.
      *
      * @var HttpServiceInterface
      */
