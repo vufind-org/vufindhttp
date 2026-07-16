@@ -42,5 +42,9 @@
         "psr-0": {
             "VuFindHttp\\": "src/"
         }
+    },
+    "scripts": {
+        "fix": "phing fix-php",
+        "qa": "phing qa-console"
     }
 }
