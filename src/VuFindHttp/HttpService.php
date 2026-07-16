@@ -79,7 +79,7 @@ class HttpService implements HttpServiceInterface
     protected $defaults;
 
     /**
-     * Default adapter
+     * Default adapter.
      *
      * @var \Laminas\Http\Client\Adapter\AdapterInterface
      */

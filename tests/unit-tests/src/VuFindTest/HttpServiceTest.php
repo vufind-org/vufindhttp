@@ -231,7 +231,7 @@ class HttpServiceTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test POST request.with empty body
+     * Test POST request.with empty body.
      *
      * @return void
      */
